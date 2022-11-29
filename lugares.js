@@ -1,0 +1,1 @@
+console.log('Lugares.js loaded');
