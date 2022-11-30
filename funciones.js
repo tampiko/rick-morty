@@ -40,7 +40,9 @@ const creaBotones = (info) => {
     tipo = info.next.substring(posicionTipo, posicionPagina);
     siguientePagina = info.next.substring(posicionPagina + 6);
     console.log(`== siguientePagina == > ${siguientePagina}`);
-  } else {
+  }
+
+  if (info.prev) {
     console.log("tiene prev");
     posicionTipo = info.prev.indexOf("api/") + 4;
     tipo = info.prev.substring(posicionTipo, posicionPagina);
@@ -49,26 +51,30 @@ const creaBotones = (info) => {
   }
 
   // Boton Inicio
-  if (info.prev) {
-    let btnInicio = document.createElement("button");
-    btnInicio.className = "btn btn-primary";
-    btnInicio.innerHTML = `&leftarrowtail; Inicio`;
-    btnInicio.onclick = function () {
-      getData(tipo);
-    };
-    bs.appendChild(btnInicio);
+
+  let btnInicio = document.createElement("button");
+  btnInicio.className = "btn btn-primary";
+  btnInicio.innerHTML = `&leftarrowtail; Inicio`;
+  btnInicio.onclick = function () {
+    generaPagina(tipo);
+  };
+  if (!info.prev) {
+    btnInicio.disabled = true;
   }
+  bs.appendChild(btnInicio);
 
   // Boton Anterior
-  if (info.prev) {
-    let btnAnterior = document.createElement("button");
-    btnAnterior.className = "btn btn-outline-primary";
-    btnAnterior.innerHTML = `&leftarrow; Anterior`;
-    btnAnterior.onclick = function () {
-      getData(tipo, paginaAnterior);
-    };
-    bs.appendChild(btnAnterior);
+
+  let btnAnterior = document.createElement("button");
+  btnAnterior.className = "btn btn-outline-primary";
+  btnAnterior.innerHTML = `&leftarrow; Anterior`;
+  btnAnterior.onclick = function () {
+    generaPagina(tipo, paginaAnterior);
+  };
+  if (!info.prev) {
+    btnAnterior.disabled = true;
   }
+  bs.appendChild(btnAnterior);
 
   // Pagina Actual
   let paginaActual = siguientePagina - 1;
@@ -82,26 +88,29 @@ const creaBotones = (info) => {
   bs.appendChild(Label);
 
   // Boton Siguiente
-  if (info.next) {
-    let btnSiguiente = document.createElement("button");
-    btnSiguiente.className = "btn btn-outline-primary";
-    btnSiguiente.innerHTML = "Siguiente &rightarrow;";
-    btnSiguiente.onclick = function () {
-      generaPagina(tipo, siguientePagina);
-    };
-    bs.appendChild(btnSiguiente);
+  let btnSiguiente = document.createElement("button");
+  btnSiguiente.className = "btn btn-outline-primary";
+  btnSiguiente.innerHTML = "Siguiente &rightarrow;";
+  btnSiguiente.onclick = function () {
+    generaPagina(tipo, siguientePagina);
+  };
+  if (!info.next) {
+    btnSiguiente.disabled = true;
   }
+  bs.appendChild(btnSiguiente);
 
   // Boton Final
-  if (info.next) {
-    let btnFinal = document.createElement("button");
-    btnFinal.className = "btn btn-primary";
-    btnFinal.innerHTML = "Final &rightarrowtail;";
-    btnFinal.onclick = function () {
-      generaPagina(tipo, info.pages);
-    };
-    bs.appendChild(btnFinal);
+
+  let btnFinal = document.createElement("button");
+  btnFinal.className = "btn btn-primary";
+  btnFinal.innerHTML = "Final &rightarrowtail;";
+  btnFinal.onclick = function () {
+    generaPagina(tipo, info.pages);
+  };
+  if (!info.next) {
+    btnFinal.disabled = true;
   }
+  bs.appendChild(btnFinal);
 };
 
 function hola(nombre) {
