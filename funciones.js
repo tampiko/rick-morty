@@ -127,6 +127,7 @@ const generaPagina = (tipo, page) => {
     console.log(`data => ${data}`);
     limpiaDiv();
     data.results.forEach((personaje) => {
+      console.log(personaje);
       creaPersonajeCard(personaje);
     });
     console.log(`manda crear botones`);
@@ -142,7 +143,11 @@ const creaPersonajeCard = (personaje) => {
       <img src="${personaje.image}" class="card-img-top" alt="${personaje.name}">
       <div class="card-body">
         <h5 class="card-title">${personaje.name}</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text">
+        Status: ${personaje.status}<br>
+        Especie: ${personaje.species}<br>
+        Genero: ${personaje.gender}
+        </p>
       </div>
     </div>
     `;
@@ -152,3 +157,6 @@ const creaPersonajeCard = (personaje) => {
 };
 
 export { generaPagina };
+
+
+
